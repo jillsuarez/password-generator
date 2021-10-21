@@ -28,7 +28,9 @@ function generatePassword () {
 }
 
 function getUserOptions () {
+  var userChoices = {};
   // ask the user, using prompts, password criteria
+  prompt('How long would you like your password to be (between 8-128 for best security)?')
 
   // ask length
   // calidate between 8-128
@@ -44,6 +46,7 @@ function getUserOptions () {
 
 // Write password to the #password input
 function writePassword() {
+  
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
