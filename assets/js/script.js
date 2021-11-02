@@ -92,10 +92,63 @@ var specialCharacters = [
 
 
 function generatePassword () {
-  var userOptions = getUserOptions ();
+  var userChoices = getUserOptions ();
+  var newArray = [];
 
+  if (userChoices === false) {
+    return false
+  };
+
+  if (userChoices.upperCase === true){
+    newArray += upperCasedCharacters
+  };
+
+  if (userChoices.lowerCase === true){
+    newArray += lowerCasedCharacters
+  };
+
+  if (userChoices.numeric === true){
+    newArray += numericCharacters
+  };
+
+  if (userChoices.special === true){
+    newArray += specialCharacters
+  };
+
+var fullPassword = "";
+
+  for (i = 0; i < userChoices.length; i++) {
+   if (userChoices.upperCase === true) {
+      var num = Math.floor(Math.random()*25)
+      fullPassword += upperCasedCharacters [num] 
+      //fullPassword += Math.floor(Math.random(upperCasedCharacters))
+      userChoices.upperCase = false
+    }
+    else if (userChoices.lowerCase === true) {
+      var num = Math.floor(Math.random()*25)
+      fullPassword += lowerCasedCharacters [num]
+      userChoices.lowerCase = false
+    }
+    else if (userChoices.numeric === true) {
+      var num = Math.floor(Math.random()*10)
+      fullPassword += numericCharacters [num]
+      userChoices.numeric = false
+    }
+    else if(userChoices.special === true) {
+      var num = Math.floor(Math.random()*22)
+      fullPassword += specialCharacters [num]
+      userChoices.special = false
+    }
+    else {
+    var num = Math.floor(Math.random()* newArray.length -1)
+    fullPassword+=newArray[num];//};
+    console.log (fullPassword);
+  };
+
+};
+  
   // check if upper
-    // add a random char from upper
+  // add a random char from upper
 
   // check if lower
     // add a random char from lower
@@ -111,7 +164,7 @@ function generatePassword () {
   // generate password
 
   // return password
-}
+//}
 
 function getUserOptions () {
   var userChoices = {};
@@ -121,10 +174,14 @@ function getUserOptions () {
   // calidate between 8-128
   var length = prompt('How long would you like your password to be (between 8-128 for best security)?')
   
-  // to do: validate length
-
   //assign to userOptions
   userChoices.length = parseInt(length);
+
+  // to do: validate length
+  if (userChoices.length < 8 || userChoices.length > 128) {
+    alert ("Please enter a valid option")
+    return false
+  };
 
   // chose if to include lowercase
   var lowerCase = confirm('Do you want lower case characters in your password?');
@@ -150,8 +207,6 @@ function getUserOptions () {
 
 // Write password to the #password input
 function writePassword() {
-  var userChoices = getUserOptions();
-  console.log(userChoices);
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
