@@ -32,6 +32,10 @@ var upperCasedCharacters = [
   'Y',
   'Z'
 ];
+
+//console.log(upperCasedCharacters.join());
+//console.log(upperCasedCharacters.join(""));
+//console.log(upperCasedCharacters.join()===upperCasedCharacters);
 // array of lowerChar
 var lowerCasedCharacters = [
   'a',
@@ -96,7 +100,7 @@ function generatePassword () {
   var newArray = [];
 
   if (userChoices === false) {
-    return false
+    return "Please try again"
   };
 
   if (userChoices.upperCase === true){
@@ -115,6 +119,11 @@ function generatePassword () {
     newArray += specialCharacters
   };
 
+  for(var i = 0; i<newArray.length;i++)
+  {
+      console.log(newArray[i]);
+
+  }
 var fullPassword = "";
 
   for (i = 0; i < userChoices.length; i++) {
@@ -141,9 +150,11 @@ var fullPassword = "";
     }
     else {
     var num = Math.floor(Math.random()* newArray.length -1)
-    fullPassword+=newArray[num];//};
+    fullPassword+=newArray[num];};
     console.log (fullPassword);
   };
+
+  return fullPassword
 
 };
   
@@ -200,9 +211,13 @@ function getUserOptions () {
   userChoices.special = special;
   
   // validate user choses at least one character type
+  if (lowerCase === false && upperCase === false && numeric === false && special === false) {
+      alert ("Please chose at least one charater type")
+      return false
+  };
 
   return userChoices;
-}
+};
 
 
 // Write password to the #password input
@@ -212,7 +227,7 @@ function writePassword() {
 
   passwordText.value = password;
 
-}
+};
 
 
 // Add event listener to generate button
